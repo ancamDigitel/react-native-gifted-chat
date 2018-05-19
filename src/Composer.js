@@ -20,8 +20,10 @@ export default class Composer extends React.Component {
       this.contentSize.width !== contentSize.width ||
       this.contentSize.height !== contentSize.height
     ) {
-      this.contentSize = contentSize;
-      this.props.onInputSizeChanged(this.contentSize);
+      if (contentSize.width !== 0) {
+        this.contentSize = contentSize;
+        this.props.onInputSizeChanged(this.contentSize);
+      }
     }
   }
 
