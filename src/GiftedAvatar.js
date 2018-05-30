@@ -17,7 +17,7 @@ export default class GiftedAvatar extends React.PureComponent {
     if (name.length === 1) {
       this.avatarName = `${name[0].charAt(0)}`;
     } else if (name.length > 1) {
-      this.avatarName = `${name[0].charAt(0)}${name[1].charAt(0)}`;
+      this.avatarName = `${name[0].charAt(0)}${name[name.length - 1].charAt(0)}`;
     } else {
       this.avatarName = '';
     }
@@ -121,7 +121,7 @@ const styles = {
     color: Color.white,
     fontSize: 16,
     backgroundColor: Color.backgroundTransparent,
-    fontWeight: '100',
+    fontWeight: '500',
   },
 };
 
