@@ -6,7 +6,7 @@ import {
   Text,
   Clipboard,
   StyleSheet,
-  TouchableWithoutFeedback,
+  TouchableOpacity,
   View,
   ViewPropTypes,
 } from 'react-native';
@@ -150,7 +150,8 @@ export default class Bubble extends React.Component {
             this.handleBubbleToPrevious(),
           ]}
         >
-          <TouchableWithoutFeedback
+          <TouchableOpacity
+            activeOpacity={0.25}
             onLongPress={this.onLongPress}
             accessibilityTraits="text"
             {...this.props.touchableProps}
@@ -163,7 +164,7 @@ export default class Bubble extends React.Component {
                 {this.renderTime()}
               </View>
             </View>
-          </TouchableWithoutFeedback>
+          </TouchableOpacity>
         </View>
         {this.renderTicks()}
       </View>
