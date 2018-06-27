@@ -14,35 +14,35 @@ export default class InputToolbar extends React.Component {
   constructor(props) {
     super(props);
 
-    this.keyboardWillShow = this.keyboardWillShow.bind(this);
-    this.keyboardWillHide = this.keyboardWillHide.bind(this);
+    // this.keyboardWillShow = this.keyboardWillShow.bind(this);
+    // this.keyboardWillHide = this.keyboardWillHide.bind(this);
 
-    this.state = {
-      position: 'absolute',
-    };
+    // this.state = {
+    //   position: 'relative',
+    // };
   }
 
-  componentWillMount() {
-    this.keyboardWillShowListener = Keyboard.addListener('keyboardWillShow', this.keyboardWillShow);
-    this.keyboardWillHideListener = Keyboard.addListener('keyboardWillHide', this.keyboardWillHide);
-  }
+  // componentWillMount() {
+  //   this.keyboardWillShowListener = Keyboard.addListener('keyboardWillShow', this.keyboardWillShow);
+  //   this.keyboardWillHideListener = Keyboard.addListener('keyboardWillHide', this.keyboardWillHide);
+  // }
 
-  componentWillUnmount() {
-    this.keyboardWillShowListener.remove();
-    this.keyboardWillHideListener.remove();
-  }
+  // componentWillUnmount() {
+  //   this.keyboardWillShowListener.remove();
+  //   this.keyboardWillHideListener.remove();
+  // }
 
-  keyboardWillShow() {
-    this.setState({
-      position: 'relative',
-    });
-  }
+  // keyboardWillShow() {
+  //   this.setState({
+  //     position: 'relative',
+  //   });
+  // }
 
-  keyboardWillHide() {
-    this.setState({
-      position: 'absolute',
-    });
-  }
+  // keyboardWillHide() {
+  //   this.setState({
+  //     position: 'relative',
+  //   });
+  // }
 
   renderActions() {
     if (this.props.renderActions) {
@@ -82,7 +82,7 @@ export default class InputToolbar extends React.Component {
   render() {
     return (
       <View
-        style={[styles.container, this.props.containerStyle, { position: this.state.position }]}
+        style={[styles.container, this.props.containerStyle, { position: 'relative' }]}
       >
         <View style={[styles.primary, this.props.primaryStyle]}>
           {this.renderActions()}
