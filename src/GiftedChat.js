@@ -229,17 +229,16 @@ class GiftedChat extends React.Component {
    * Returns the height, based on current window size, without taking the keyboard into account.
    */
   getBasicMessagesContainerHeight(composerHeight = this.state.composerHeight) {
-    return this.getMaxHeight() - this.calculateInputToolbarHeight(composerHeight);
+    let basicHeight = this.getMaxHeight() - this.calculateInputToolbarHeight(composerHeight);
+    basicHeight -= this.props.additionBottom();
+    return basicHeight;
   }
 
   /**
    * Returns the height, based on current window size, taking the keyboard into account.
    */
   getMessagesContainerHeightWithKeyboard(composerHeight = this.state.composerHeight) {
-    let keyboardHeight = 0
-    if (this.props.isHandlingKeyboard) {
-      keyboardHeight = this.getKeyboardHeight()
-    }
+    const keyboardHeight = this.getKeyboardHeight();
     return this.getBasicMessagesContainerHeight(composerHeight) - keyboardHeight + this.getBottomOffset();
   }
 
@@ -296,6 +295,20 @@ class GiftedChat extends React.Component {
       this.onKeyboardWillHide(e);
     }
     this.setIsTypingDisabled(false);
+  }
+
+  updateHeight() {
+    const newMessagesContainerHeight = this.getBasicMessagesContainerHeight();
+    if (this.props.isAnimated === true) {
+      Animated.timing(this.state.messagesContainerHeight, {
+        toValue: newMessagesContainerHeight,
+        duration: 210,
+      }).start();
+    } else {
+      this.setState({
+        messagesContainerHeight: newMessagesContainerHeight,
+      });
+    }
   }
 
   scrollToBottom(animated = true) {
@@ -480,10 +493,10 @@ class GiftedChat extends React.Component {
     if (this.state.isInitialized === true) {
       return (
         <ActionSheet ref={(component) => (this._actionSheetRef = component)}>
-          <Animated.View style={[styles.container, this.props.style]} onLayout={this.onMainViewLayout}>
+          <View style={[styles.container, this.props.style]} onLayout={this.onMainViewLayout}>
             {this.renderMessages()}
             {this.renderInputToolbar()}
-          </Animated.View>
+          </View>
         </ActionSheet>
       );
     }
@@ -563,7 +576,7 @@ GiftedChat.defaultProps = {
   inverted: true,
 
   /// handle resize screen height when the keyboard show/hide
-  isHandlingKeyboard: true,
+  additionBottom: () => { return 0;},
 };
 
 GiftedChat.propTypes = {
