@@ -9,10 +9,10 @@ import moment from 'moment';
 import Color from './Color';
 import { TIME_FORMAT } from './Constant';
 
-export default function Time({ position, containerStyle, currentMessage, timeFormat, textStyle }, context) {
+export default function Time({ position, containerStyle, currentMessage, timeFormat, textTimeStyle }, context) {
   return (
     <View style={[styles[position].container, containerStyle[position]]}>
-      <Text style={[styles[position].text, textStyle[position]]}>
+      <Text style={[styles[position].text, textTimeStyle[position]]}>
         {moment(currentMessage.createdAt)
           .locale(context.getLocale())
           .format(timeFormat)}
