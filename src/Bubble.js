@@ -25,6 +25,10 @@ export default class Bubble extends React.Component {
     this.onLongPress = this.onLongPress.bind(this);
   }
 
+  onPress = () => {
+    this.props.onPress(this.props.currentMessage);
+  }
+
   onLongPress() {
     if (this.props.onLongPress) {
       this.props.onLongPress(this.context, this.props.currentMessage);
@@ -153,6 +157,7 @@ export default class Bubble extends React.Component {
           <TouchableOpacity
             activeOpacity={0.25}
             onLongPress={this.onLongPress}
+            onPress={this.onPress}
             accessibilityTraits="text"
             {...this.props.touchableProps}
           >
