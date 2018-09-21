@@ -26,7 +26,9 @@ export default class Bubble extends React.Component {
   }
 
   onPress = () => {
-    this.props.onPress(this.props.currentMessage);
+    if (this.props.onPress) {
+      this.props.onPress(this.props.currentMessage);
+    }
   }
 
   onLongPress() {
