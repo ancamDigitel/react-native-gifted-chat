@@ -11,6 +11,8 @@ import {
   ViewPropTypes,
 } from 'react-native';
 
+import LinearGradient from 'react-native-linear-gradient';
+
 import MessageText from './MessageText';
 import MessageImage from './MessageImage';
 import Time from './Time';
@@ -141,6 +143,12 @@ export default class Bubble extends React.Component {
   }
 
   render() {
+
+    const needRadient = this.props.needRadient ? this.props.needRadient : false;
+    const WrapperView = needRadient ? LinearGradient : View;
+    const startEnd = needRadient ? { start: { x: 0, y: 0 }, end: { x: 1, y: 0 } } : {}
+    const colors = this.props.radientColors ? this.props.radientColors : ['#07a4ff', '#0082e0']
+
     return (
       <View
         style={[
@@ -148,12 +156,15 @@ export default class Bubble extends React.Component {
           this.props.containerStyle[this.props.position],
         ]}
       >
-        <View
+        <WrapperView
+          colors={colors}
+          {...startEnd}
           style={[
             styles[this.props.position].wrapper,
             this.props.wrapperStyle[this.props.position],
             this.handleBubbleToNext(),
             this.handleBubbleToPrevious(),
+            { overflow: 'hidden' },
           ]}
         >
           <TouchableOpacity
@@ -172,7 +183,7 @@ export default class Bubble extends React.Component {
               </View>
             </View>
           </TouchableOpacity>
-        </View>
+        </WrapperView>
         {this.renderTicks()}
       </View>
     );
