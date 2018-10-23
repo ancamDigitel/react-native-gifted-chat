@@ -138,6 +138,7 @@ export default class MessageContainer extends React.Component {
         {...props}
         {...invertibleScrollViewProps}
         ref={(component) => (this._invertibleScrollViewRef = component)}
+        onLayoutMessageView={this.props.onLayoutMessageView}
       />
     );
   }
@@ -150,6 +151,7 @@ export default class MessageContainer extends React.Component {
     return (
       <View style={styles.container}>
         <ListView
+          ref={ref => this.props.setRefListView(ref)}
           enableEmptySections
           automaticallyAdjustContentInsets={false}
           initialListSize={20}
@@ -187,6 +189,8 @@ MessageContainer.defaultProps = {
   loadEarlier: false,
   listViewProps: {},
   invertibleScrollViewProps: {},
+  setRefListView: () => { },
+  onLayoutMessageView: () => { },
 };
 
 MessageContainer.propTypes = {
