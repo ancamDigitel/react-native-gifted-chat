@@ -27,6 +27,15 @@ export default class Composer extends React.Component {
     }
   }
 
+  renderRichText() {
+    if (this.props.renderRichText) {
+      if (this.props.changedRichText) {
+        this.onChangeText(this.props.changedRichText())
+      }
+      return this.props.renderRichText()
+    }
+  }
+
   onChangeText(text) {
     this.props.onTextChanged(text);
   }
@@ -48,7 +57,9 @@ export default class Composer extends React.Component {
         underlineColorAndroid="transparent"
         keyboardAppearance={this.props.keyboardAppearance}
         {...this.props.textInputProps}
-      />
+      >
+        {this.renderRichText()}
+      </TextInput>
     );
   }
 
