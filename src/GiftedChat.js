@@ -334,6 +334,7 @@ class GiftedChat extends React.Component {
           ref={(component) => (this._messageContainerRef = component)}
 
         />
+        {this.renderRecommendTag()}
         {this.renderChatFooter()}
       </AnimatedView>
     );
@@ -399,6 +400,10 @@ class GiftedChat extends React.Component {
   }
 
   onInputTextChanged(text) {
+    if (text === this.state.text) {
+      return;
+    }
+
     if (this.getIsTypingDisabled()) {
       return;
     }
@@ -470,6 +475,12 @@ class GiftedChat extends React.Component {
         {...inputToolbarProps}
       />
     );
+  }
+
+  renderRecommendTag() {
+    if (this.props.renderRecommendTag) {
+      return this.props.renderRecommendTag();
+    }
   }
 
   renderChatFooter() {
