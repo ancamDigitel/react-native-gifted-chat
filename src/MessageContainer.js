@@ -9,7 +9,7 @@
 import PropTypes from 'prop-types';
 import React from 'react';
 
-import { ListView, View, StyleSheet } from 'react-native';
+import { ListView, View, StyleSheet, TouchableOpacity } from 'react-native';
 
 import shallowequal from 'shallowequal';
 import InvertibleScrollView from 'react-native-invertible-scroll-view';
@@ -57,6 +57,12 @@ export default class MessageContainer extends React.Component {
       return true;
     }
     return false;
+  }
+
+  onBackgroundPressed = () => {
+    if (this.props.onChatBackgroundPressed) {
+      this.props.onChatBackgroundPressed();
+    }
   }
 
   prepareMessages(messages) {
@@ -139,6 +145,7 @@ export default class MessageContainer extends React.Component {
         {...invertibleScrollViewProps}
         ref={(component) => (this._invertibleScrollViewRef = component)}
         onLayoutMessageView={this.props.onLayoutMessageView}
+        onChatBackgroundPressed={this.props.onChatBackgroundPressed}
       />
     );
   }
@@ -150,20 +157,22 @@ export default class MessageContainer extends React.Component {
 
     return (
       <View style={styles.container}>
-        <ListView
-          ref={ref => this.props.setRefListView(ref)}
-          enableEmptySections
-          automaticallyAdjustContentInsets={false}
-          initialListSize={20}
-          pageSize={20}
-          {...this.props.listViewProps}
-          dataSource={this.state.dataSource}
-          contentContainerStyle={contentContainerStyle}
-          renderRow={this.renderRow}
-          renderHeader={this.props.inverted ? this.renderFooter : this.renderLoadEarlier}
-          renderFooter={this.props.inverted ? this.renderLoadEarlier : this.renderFooter}
-          renderScrollComponent={this.renderScrollComponent}
-        />
+        <TouchableOpacity style={{ flex: 1 }} activeOpacity={1} onPress={this.onBackgroundPressed}>
+          <ListView
+            ref={ref => this.props.setRefListView(ref)}
+            enableEmptySections
+            automaticallyAdjustContentInsets={false}
+            initialListSize={20}
+            pageSize={20}
+            {...this.props.listViewProps}
+            dataSource={this.state.dataSource}
+            contentContainerStyle={contentContainerStyle}
+            renderRow={this.renderRow}
+            renderHeader={this.props.inverted ? this.renderFooter : this.renderLoadEarlier}
+            renderFooter={this.props.inverted ? this.renderLoadEarlier : this.renderFooter}
+            renderScrollComponent={this.renderScrollComponent}
+          />
+        </TouchableOpacity>
       </View>
     );
   }
