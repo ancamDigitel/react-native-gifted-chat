@@ -9,7 +9,8 @@
 import PropTypes from 'prop-types';
 import React from 'react';
 
-import { ListView, View, StyleSheet, TouchableOpacity } from 'react-native';
+import { View, StyleSheet, TouchableOpacity } from 'react-native';
+import ListView from "deprecated-react-native-listview";
 
 import shallowequal from 'shallowequal';
 import InvertibleScrollView from 'react-native-invertible-scroll-view';
